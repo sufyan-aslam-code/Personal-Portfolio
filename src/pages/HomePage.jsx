@@ -1,0 +1,69 @@
+import { useEffect } from 'react';
+import Navbar from '../components/public/Navbar';
+import HeroSection from '../components/public/HeroSection';
+import SkillsSection from '../components/public/SkillsSection';
+import ExperienceSection from '../components/public/ExperienceSection';
+import ProjectsSection from '../components/public/ProjectsSection';
+import CertificationsSection from '../components/public/CertificationsSection';
+import ContactSection from '../components/public/ContactSection';
+import { usePortfolio } from '../hooks/usePortfolio';
+
+export default function HomePage() {
+  const { profile } = usePortfolio();
+
+  // Dynamic Circular Favicon Sync
+  useEffect(() => {
+    if (profile?.avatar_url) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous'; // Required for external URLs (Supabase storage)
+      img.src = profile.avatar_url;
+      
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const size = Math.min(img.width, img.height);
+        canvas.width = size;
+        canvas.height = size;
+        
+        const ctx = canvas.getContext('2d');
+        
+        // Create circular mask
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        
+        // Draw image (centered if not perfectly square)
+        const dx = (size - img.width) / 2;
+        const dy = (size - img.height) / 2;
+        ctx.drawImage(img, dx, dy, img.width, img.height);
+        
+        // Export to data URL
+        const circularDataUrl = canvas.toDataURL('image/png');
+        
+        // Inject into document
+        let link = document.querySelector("link[rel*='icon']");
+        if (!link) {
+          link = document.createElement('link');
+          document.getElementsByTagName('head')[0].appendChild(link);
+        }
+        link.type = 'image/png';
+        link.rel = 'icon';
+        link.href = circularDataUrl;
+      };
+    }
+  }, [profile?.avatar_url]);
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0f] transition-colors duration-300">
+      <Navbar />
+      <main>
+        <HeroSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ExperienceSection />
+        <CertificationsSection />
+        <ContactSection />
+      </main>
+    </div>
+  );
+}
