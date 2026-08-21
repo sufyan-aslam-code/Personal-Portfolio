@@ -91,8 +91,8 @@ function ProjectCard({ project }) {
   return (
     <div
       className={`group relative flex flex-col rounded-2xl overflow-hidden bg-white dark:bg-[#1a1a2e] border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${project.is_featured
-          ? 'border-indigo-500/40 shadow-lg shadow-indigo-500/10'
-          : 'border-gray-200 dark:border-gray-800 hover:shadow-indigo-500/5'
+        ? 'border-indigo-500/40 shadow-lg shadow-indigo-500/10'
+        : 'border-gray-200 dark:border-gray-800 hover:shadow-indigo-500/5'
         }`}
     >
       {/* Featured Badge */}

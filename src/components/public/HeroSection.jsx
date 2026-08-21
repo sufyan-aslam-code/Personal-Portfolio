@@ -1,4 +1,4 @@
-import { MapPin, Download, Mail, ArrowDown } from 'lucide-react';
+import { MapPin, Download, Mail, ArrowDown, Sparkles } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../ui/BrandIcons';
 import { SkeletonText, SkeletonAvatar } from '../ui/SkeletonLoader';
 import { usePortfolio } from '../../hooks/usePortfolio';
@@ -9,7 +9,7 @@ export default function HeroSection() {
 
   if (loading) {
     return (
-      <section id="hero" className="min-h-screen flex items-center justify-center pt-20 pb-16 px-4">
+      <section id="hero" className="min-h-screen flex items-center justify-center pt-36 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <SkeletonAvatar size="xl" className="mx-auto mb-6" />
           <div className="skeleton h-10 w-64 mx-auto mb-4" />
@@ -23,80 +23,93 @@ export default function HeroSection() {
   if (!profile) return null;
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-4 overflow-hidden">
-      {/* Background Effects */}
+    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-36 md:pt-40 pb-16 px-4 overflow-hidden">
+      {/* Premium Background Effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl" />
+        {/* Subtle Grid Pattern for a "Tech" feel */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]" />
+
+        {/* Animated Glowing Orbs */}
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-indigo-500/20 dark:bg-indigo-500/10 rounded-full blur-[100px] animate-float" />
+        <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-[100px] animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/10 dark:bg-cyan-500/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative max-w-4xl mx-auto text-center animate-slide-up">
-        {/* Avatar */}
+      <div className="relative max-w-4xl mx-auto text-center animate-slide-up z-10">
+
+        {/* Avatar with Concentric Gradient Rings */}
         {profile.avatar_url && (
-          <div className="mb-8 inline-block">
+          <div className="mb-6 flex justify-center">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
+              {/* Spinning outer gradients */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500 rounded-full blur-lg opacity-40 group-hover:opacity-75 transition-opacity duration-500 group-hover:animate-spin-slow" />
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
               <img
                 src={profile.avatar_url}
                 alt={profile.full_name}
-                className="relative w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-900 shadow-2xl"
+                className="relative w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-[3px] border-white dark:border-gray-900 shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500"
               />
             </div>
           </div>
         )}
 
-
-        {/* Name */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4">
-          <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-violet-700 bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-amber-300 dark:via-yellow-400 dark:to-amber-500 dark:bg-clip-text dark:text-transparent">
+        {/* Name with Original Purple (Light) and Shining Gold (Dark) - Professional Sizing */}
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">
+          <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-violet-700 dark:from-amber-300 dark:via-yellow-400 dark:to-amber-500 bg-clip-text text-transparent">
             {profile.full_name}
           </span>
         </h1>
 
-        {/* Headline */}
-        <p className="text-lg sm:text-xl md:text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-500">
-          {profile.headline}
-        </p>
+        {/* Headline with Professional Slate/Charcoal Color */}
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <Sparkles className="w-4 h-4 text-amber-500/70 animate-pulse hidden sm:block" />
+          <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-slate-700 dark:text-slate-300 tracking-wide">
+            {profile.headline}
+          </p>
+          <Sparkles className="w-4 h-4 text-amber-500/70 animate-pulse hidden sm:block" />
+        </div>
 
         {/* Location */}
         {profile.location && (
-          <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400 mb-6">
-            <MapPin className="w-4 h-4" />
-            <span className="text-sm">{profile.location}</span>
+          <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400 mb-8 bg-white/50 dark:bg-gray-800/50 w-max mx-auto px-4 py-1.5 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
+            <MapPin className="w-4 h-4 text-indigo-500" />
+            <span className="text-sm font-medium">{profile.location}</span>
           </div>
         )}
 
-        {/* Bio */}
+        {/* Bio - Readable Sizing */}
         {profile.bio && (
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed whitespace-pre-wrap">
+          <p className="text-gray-600 dark:text-gray-300/90 max-w-2xl mx-auto mb-10 text-base sm:text-lg leading-relaxed whitespace-pre-wrap font-medium px-4">
             {profile.bio}
           </p>
         )}
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 mb-16">
           {profile.resume_url && (
             <a
               href={profile.resume_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-300"
+              className="group relative inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.12)] hover:scale-105 active:scale-95 transition-all duration-300"
             >
-              <Download className="w-4 h-4" />
-              Download Resume
+              {/* Shine effect on hover */}
+              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 dark:via-black/10 to-transparent skew-x-12" />
+              <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
+              <span>Download Resume</span>
             </a>
           )}
-          
+
           <div className="flex flex-wrap items-center justify-center gap-3">
             {profile.github_url && (
               <a
                 href={getSocialUrl(profile.github_url, 'github')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-white/80 dark:bg-gray-900/60 backdrop-blur-md border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-indigo-500/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 rounded-xl px-5 py-3 font-semibold"
+                className="group inline-flex items-center gap-2 bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl border border-gray-200 dark:border-gray-700/80 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-indigo-500/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 rounded-2xl px-6 py-3.5 font-bold shadow-sm hover:shadow-md hover:-translate-y-1"
               >
-                <Github className="w-4 h-4" />
+                <Github className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 GitHub
               </a>
             )}
@@ -105,18 +118,18 @@ export default function HeroSection() {
                 href={getSocialUrl(profile.linkedin_url, 'linkedin')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-white/80 dark:bg-gray-900/60 backdrop-blur-md border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-indigo-500/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 rounded-xl px-5 py-3 font-semibold"
+                className="group inline-flex items-center gap-2 bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl border border-gray-200 dark:border-gray-700/80 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-blue-500/50 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 rounded-2xl px-6 py-3.5 font-bold shadow-sm hover:shadow-md hover:-translate-y-1"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 LinkedIn
               </a>
             )}
             {profile.email && (
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex items-center gap-2 bg-white/80 dark:bg-gray-900/60 backdrop-blur-md border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-indigo-500/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 rounded-xl px-5 py-3 font-semibold"
+                className="group inline-flex items-center gap-2 bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl border border-gray-200 dark:border-gray-700/80 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-purple-500/50 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-300 rounded-2xl px-6 py-3.5 font-bold shadow-sm hover:shadow-md hover:-translate-y-1"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 Email
               </a>
             )}
@@ -130,10 +143,14 @@ export default function HeroSection() {
             e.preventDefault();
             document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="inline-flex flex-col items-center gap-2 text-gray-400 hover:text-indigo-500 transition-colors animate-bounce"
+          className="group inline-flex flex-col items-center gap-3 text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors mt-4"
         >
-          <span className="text-xs font-medium uppercase tracking-widest">Explore</span>
-          <ArrowDown className="w-4 h-4" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all duration-300">
+            Scroll to explore
+          </span>
+          <div className="w-8 h-12 rounded-full border-2 border-gray-300 dark:border-gray-700 flex justify-center p-1 group-hover:border-indigo-500 dark:group-hover:border-indigo-400 transition-colors">
+            <div className="w-1.5 h-3 bg-gray-400 group-hover:bg-indigo-500 dark:group-hover:bg-indigo-400 rounded-full animate-bounce mt-1 transition-colors" />
+          </div>
         </a>
       </div>
     </section>

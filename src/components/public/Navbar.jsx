@@ -59,87 +59,38 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${scrolled
-          ? 'py-3 bg-white/70 dark:bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm'
-          : 'py-5 bg-transparent border-b border-transparent'
+      className={`fixed left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-out px-4 sm:px-6 ${scrolled ? 'top-2 sm:top-4' : 'top-4 sm:top-6'
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-
-          {/* Logo / Profile Picture */}
-          <a
-            href="#hero"
-            onClick={(e) => handleNavClick(e, '#hero')}
-            className="relative group shrink-0 flex items-center gap-3"
-            aria-label="Go to top"
-          >
-            <div className="w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden ring-2 ring-gray-200/50 dark:ring-gray-800/50 group-hover:ring-indigo-500 group-hover:shadow-lg group-hover:shadow-indigo-500/20 transition-all duration-300 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-              {profile?.avatar_url ? (
-                <img
-                  src={profile.avatar_url}
-                  alt={profile.full_name || 'Profile'}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
-                />
-              ) : (
-                <span className="text-sm font-bold text-gray-500 dark:text-gray-400">SA</span>
-              )}
-            </div>
-          </a>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center gap-1 bg-white/60 dark:bg-gray-900/40 backdrop-blur-md p-1 rounded-full border border-gray-200/50 dark:border-gray-800/50 shadow-sm">
-              {NAV_LINKS.map((link) => {
-                const isActive = activeSection === link.href.replace('#', '');
-                return (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${isActive
-                        ? 'bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-gray-900/5 dark:ring-white/10'
-                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
-                      }`}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
-            </div>
-
-            <div className="flex items-center bg-white/60 dark:bg-gray-900/40 backdrop-blur-md p-1 rounded-full border border-gray-200/50 dark:border-gray-800/50 shadow-sm">
-              <ThemeToggle />
-            </div>
-          </div>
-
-          {/* Mobile Controls */}
-          <div className="flex items-center gap-3 md:hidden">
-            <div className="flex items-center bg-white/60 dark:bg-gray-900/40 backdrop-blur-md p-1 rounded-full border border-gray-200/50 dark:border-gray-800/50 shadow-sm">
-              <ThemeToggle />
-            </div>
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2 rounded-full text-gray-600 dark:text-gray-300 bg-white/60 dark:bg-gray-900/40 backdrop-blur-md border border-gray-200/50 dark:border-gray-800/50 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-all active:scale-95"
-              aria-expanded={mobileOpen}
-              aria-label="Toggle navigation menu"
-            >
-              {mobileOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu Dropdown (Polished dynamic height & deep glassmorphism) */}
+      {/* Floating Glass Pill Container */}
       <div
-        className={`absolute top-full left-0 right-0 w-full md:hidden overflow-hidden transition-all duration-300 ease-in-out origin-top ${mobileOpen ? 'opacity-100 max-h-[calc(100vh-6rem)]' : 'opacity-0 max-h-0'
+        className={`w-full transition-all duration-500 ease-out flex items-center justify-between p-2 rounded-[2rem] bg-white/70 dark:bg-[#0a0a0f]/70 backdrop-blur-xl border border-white/60 dark:border-gray-800/80 shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] ${scrolled ? 'max-w-6xl' : 'max-w-5xl'
           }`}
       >
-        <div className="mx-4 mt-3 mb-4 p-3 rounded-2xl bg-white/95 dark:bg-[#0a0a0f]/95 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-800/50 shadow-2xl flex flex-col gap-1">
+        {/* Logo / Profile Picture with Gradient Ring */}
+        <a
+          href="#hero"
+          onClick={(e) => handleNavClick(e, '#hero')}
+          className="relative group shrink-0 pl-1"
+          aria-label="Go to top"
+        >
+          {/* Animated Gradient Border */}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500 rounded-full blur-[2px] opacity-70 group-hover:opacity-100 group-hover:animate-spin-slow transition-opacity duration-500" />
+          <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden border-[2px] border-white dark:border-gray-900 bg-white dark:bg-gray-800 flex items-center justify-center">
+            {profile?.avatar_url ? (
+              <img
+                src={profile.avatar_url}
+                alt={profile.full_name || 'Profile'}
+                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+              />
+            ) : (
+              <span className="text-sm font-bold text-gray-500 dark:text-gray-400">SA</span>
+            )}
+          </div>
+        </a>
+
+        {/* Desktop Nav Links */}
+        <div className="hidden md:flex items-center gap-1 px-2">
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.href.replace('#', '');
             return (
@@ -147,12 +98,66 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
-                    ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-500/10'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                className={`relative px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 group overflow-hidden ${isActive
+                    ? 'text-white shadow-[0_0_20px_rgba(99,102,241,0.3)]'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
                   }`}
               >
-                {link.label}
+                {/* Active Link Gradient Background */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-10'
+                    }`}
+                />
+                <span className="relative z-10">{link.label}</span>
+              </a>
+            );
+          })}
+        </div>
+
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-2 pr-1">
+          <div className="w-[1px] h-6 bg-gray-200 dark:bg-gray-800 mx-2" /> {/* Subtle Divider */}
+          <ThemeToggle />
+        </div>
+
+        {/* Mobile Controls */}
+        <div className="flex items-center gap-2 pr-1 md:hidden">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="relative p-2.5 rounded-full text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200/50 dark:border-gray-700/50 shadow-sm transition-all duration-300 active:scale-95"
+            aria-expanded={mobileOpen}
+            aria-label="Toggle navigation menu"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Dropdown (Glass Card) */}
+      <div
+        className={`absolute top-[calc(100%+1rem)] left-4 right-4 md:hidden overflow-hidden transition-all duration-500 ease-out origin-top ${mobileOpen ? 'opacity-100 translate-y-0 max-h-[calc(100vh-8rem)]' : 'opacity-0 -translate-y-4 max-h-0'
+          }`}
+      >
+        <div className="p-3 rounded-3xl bg-white/95 dark:bg-[#0a0a0f]/95 backdrop-blur-2xl border border-white/60 dark:border-gray-800/80 shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-2xl flex flex-col gap-1">
+          {NAV_LINKS.map((link) => {
+            const isActive = activeSection === link.href.replace('#', '');
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`relative overflow-hidden block px-5 py-4 rounded-2xl text-sm font-bold transition-all duration-300 group ${isActive
+                    ? 'text-white shadow-md'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                  }`}
+              >
+                {/* Active Link Gradient Background for Mobile */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-10'
+                    }`}
+                />
+                <span className="relative z-10">{link.label}</span>
               </a>
             );
           })}
