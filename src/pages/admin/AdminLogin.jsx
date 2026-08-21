@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth';
 import ThemeToggle from '../../components/ui/ThemeToggle';
 
@@ -35,15 +35,15 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-white dark:bg-[#0a0a0f] transition-colors duration-300 relative">
-      <Toaster 
-        position="top-right" 
+      <Toaster
+        position="top-right"
         toastOptions={{
           duration: 4000,
           className: 'dark:bg-[#12121a] dark:text-white dark:border dark:border-gray-800 shadow-xl font-medium',
           style: { borderRadius: '12px' },
           success: { iconTheme: { primary: '#10b981', secondary: '#fff' } },
           error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
-        }} 
+        }}
       />
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
