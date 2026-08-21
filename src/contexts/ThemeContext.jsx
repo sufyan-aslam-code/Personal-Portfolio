@@ -7,9 +7,8 @@ export function ThemeProvider({ children }) {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme');
       if (stored) return stored;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
+      // Default directly to 'dark' for first-time visitors
+      return 'dark';
     }
     return 'dark';
   });

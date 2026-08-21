@@ -1,4 +1,4 @@
-import { MapPin, Download, Mail, ArrowDown, Sparkles } from 'lucide-react';
+import { MapPin, Download, Mail, ArrowDown, Sparkles, MessageCircle } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../ui/BrandIcons';
 import { SkeletonText, SkeletonAvatar } from '../ui/SkeletonLoader';
 import { usePortfolio } from '../../hooks/usePortfolio';
@@ -124,6 +124,16 @@ export default function HeroSection() {
                 LinkedIn
               </a>
             )}
+            {/* WhatsApp Button */}
+            <a
+              href={getSocialUrl(profile.whatsapp_url, 'whatsapp')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl border border-gray-200 dark:border-gray-700/80 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-emerald-500/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 rounded-2xl px-6 py-3.5 font-bold shadow-sm hover:shadow-md hover:-translate-y-1"
+            >
+              <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 text-emerald-500" />
+              WhatsApp
+            </a>
             {profile.email && (
               <a
                 href={`mailto:${profile.email}`}
