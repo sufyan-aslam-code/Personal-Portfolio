@@ -20,37 +20,48 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // 1. Update navbar styling based on scroll position
       setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  useEffect(() => {
-    const sectionIds = NAV_LINKS.map((l) => l.href.replace('#', ''));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+      // 2. Active Section Scroll Spy
+      const sectionIds = NAV_LINKS.map((l) => l.href.replace('#', ''));
+      let currentSection = '';
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // If the section's top crosses the middle of the screen
+          // and it's still visible (bottom > 0), mark it active.
+          // Because we loop in order, the furthest visible section wins.
+          if (rect.top <= window.innerHeight / 2 && rect.bottom > 0) {
+            currentSection = id;
           }
-        });
-      },
-      { rootMargin: '-20% 0px -70% 0px' }
-    );
+        }
+      }
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
 
-    return () => observer.disconnect();
+    // Listen to scroll events
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial check on mount
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
     const id = href.replace('#', '');
     const el = document.getElementById(id);
+    
+    // Instantly highlight the clicked section for better UX
+    setActiveSection(id);
+    
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
       setMobileOpen(false);
