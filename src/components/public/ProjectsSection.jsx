@@ -100,15 +100,15 @@ function ProjectCard({ project }) {
     <div
       className={`group relative flex flex-col rounded-2xl overflow-hidden bg-white/70 dark:bg-[#12121a]/80 backdrop-blur-xl border transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl ${
         project.is_featured
-          ? 'border-indigo-500/40 dark:border-indigo-500/40 shadow-[0_4px_20px_rgba(99,102,241,0.08)] dark:shadow-[0_4px_20px_rgba(99,102,241,0.12)]'
+          ? 'border-amber-500/40 dark:border-amber-500/40 shadow-[0_4px_20px_rgba(245,158,11,0.08)] dark:shadow-[0_4px_20px_rgba(245,158,11,0.12)]'
           : 'border-white/60 dark:border-gray-800/60 hover:border-indigo-500/30 dark:hover:border-indigo-500/30 shadow-sm'
       }`}
     >
       {/* Featured Badge */}
       {project.is_featured && (
-        <div className="absolute top-3 right-3 z-10 flex items-center gap-1 px-2.5 py-1 bg-white/90 dark:bg-[#1a1a2e]/90 backdrop-blur-md border border-indigo-100 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 text-[9px] font-bold uppercase tracking-widest rounded-full shadow-sm">
-          <Star className="w-3 h-3" fill="currentColor" />
-          <span>Featured</span>
+        <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-[0_4px_15px_rgba(245,158,11,0.4)] border border-amber-300/50 backdrop-blur-md">
+          <Star className="w-3 h-3 fill-white text-white drop-shadow-md" />
+          <span className="drop-shadow-md">Featured</span>
         </div>
       )}
 
