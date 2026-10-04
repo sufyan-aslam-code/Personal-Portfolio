@@ -18,35 +18,30 @@ export default function App() {
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
-          <Routes>
-            {/* Public Route — wrapped in PortfolioProvider */}
-            <Route
-              path="/"
-              element={
-                <PortfolioProvider>
-                  <HomePage />
-                </PortfolioProvider>
-              }
-            />
+          <PortfolioProvider>
+            <Routes>
+              {/* Public Route */}
+              <Route path="/" element={<HomePage />} />
 
-            {/* Admin Login (public) */}
-            <Route path="/admin/login" element={<AdminLogin />} />
+              {/* Admin Login (public) */}
+              <Route path="/admin/login" element={<AdminLogin />} />
 
-            {/* Protected Admin Routes */}
-            <Route element={<ProtectedRoute />}>
-              <Route element={<AdminLayout />}>
-                <Route path="/admin" element={<Navigate to="/admin/profile" replace />} />
-                <Route path="/admin/profile" element={<AdminProfile />} />
-                <Route path="/admin/skills" element={<AdminSkills />} />
-                <Route path="/admin/experience" element={<AdminExperience />} />
-                <Route path="/admin/projects" element={<AdminProjects />} />
-                <Route path="/admin/certifications" element={<AdminCertifications />} />
+              {/* Protected Admin Routes */}
+              <Route element={<ProtectedRoute />}>
+                <Route element={<AdminLayout />}>
+                  <Route path="/admin" element={<Navigate to="/admin/profile" replace />} />
+                  <Route path="/admin/profile" element={<AdminProfile />} />
+                  <Route path="/admin/skills" element={<AdminSkills />} />
+                  <Route path="/admin/experience" element={<AdminExperience />} />
+                  <Route path="/admin/projects" element={<AdminProjects />} />
+                  <Route path="/admin/certifications" element={<AdminCertifications />} />
+                </Route>
               </Route>
-            </Route>
 
-            {/* Catch-all */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+              {/* Catch-all */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </PortfolioProvider>
         </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>

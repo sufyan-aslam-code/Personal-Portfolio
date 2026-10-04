@@ -55,6 +55,62 @@ export function PortfolioProvider({ children }) {
     loadAll();
   }, [loadAll]);
 
+  // Dynamically update document head metadata when profile is loaded
+  useEffect(() => {
+    if (profile?.avatar_url) {
+      const avatarUrl = profile.avatar_url;
+      
+      // Update OpenGraph Image with standard URL (Base64 is often rejected by scrapers)
+      let ogImage = document.querySelector("meta[property='og:image']");
+      if (!ogImage) {
+        ogImage = document.createElement('meta');
+        ogImage.setAttribute('property', 'og:image');
+        document.head.appendChild(ogImage);
+      }
+      ogImage.content = avatarUrl;
+
+      // Create circular favicon using canvas
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        
+        // Draw circular clipping mask
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        
+        // Draw image inside mask
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        const roundedDataUrl = canvas.toDataURL('image/png');
+        
+        // Update standard favicon
+        let icon = document.querySelector("link[rel~='icon']");
+        if (!icon) {
+          icon = document.createElement('link');
+          icon.rel = 'icon';
+          document.head.appendChild(icon);
+        }
+        icon.href = roundedDataUrl;
+        
+        // Update Apple Touch Icon
+        let appleIcon = document.querySelector("link[rel='apple-touch-icon']");
+        if (!appleIcon) {
+          appleIcon = document.createElement('link');
+          appleIcon.rel = 'apple-touch-icon';
+          document.head.appendChild(appleIcon);
+        }
+        appleIcon.href = roundedDataUrl;
+      };
+      img.src = avatarUrl;
+    }
+  }, [profile?.avatar_url]);
+
   const value = {
     profile,
     skills,
